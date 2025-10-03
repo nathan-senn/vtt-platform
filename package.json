@@ -1,0 +1,23 @@
+{
+	"name": "vtt-platform",
+	"version": "1.0.0",
+	"description": "Work in Progress project for a virtual tabletop platform, hosting tools around pen and paper games",
+	"scripts": {
+		"prettier:lint": "prettier --check .",
+		"prettier:fix": "prettier --write ."
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/nathan-senn/vtt-platform.git"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/nathan-senn/vtt-platform/issues"
+	},
+	"homepage": "https://github.com/nathan-senn/vtt-platform#readme",
+	"devDependencies": {
+		"prettier": "^3.6.2"
+	}
+}
