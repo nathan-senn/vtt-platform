@@ -1,19 +1,19 @@
 {
-  "name": "server",
-  "version": "1.0.0",
-  "description": "",
-  "scripts": {
-    "dev": "tsx watch src/server.ts"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "socket.io": "^4.8.1",
-    "tsx": "^4.20.6"
-  },
-  "devDependencies": {
-    "@types/node": "^24.6.2",
-    "typescript": "^5.9.3"
-  }
+	"name": "server",
+	"version": "1.0.0",
+	"description": "",
+	"scripts": {
+		"dev": "tsx watch src/server.ts"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"socket.io": "^4.8.1",
+		"tsx": "^4.20.6"
+	},
+	"devDependencies": {
+		"@types/node": "^24.6.2",
+		"typescript": "^5.9.3"
+	}
 }
