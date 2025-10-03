@@ -1,10 +1,13 @@
-import { useState } from "react";
+import { useState, useSyncExternalStore } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
+import { clientStore } from "./stores/clientStore";
 
 function App() {
 	const [count, setCount] = useState(0);
+	const { chatMessages } = useSyncExternalStore(clientStore.subscribe, clientStore.getSnapshot);
+	console.log(chatMessages);
 
 	return (
 		<>
