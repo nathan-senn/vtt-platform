@@ -1,5 +1,4 @@
 import { useState, useSyncExternalStore } from "react";
-import "./App.css";
 import { clientStore } from "./stores/clientStore";
 const logoipsum = "/logoipsum-247.svg";
 
