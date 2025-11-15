@@ -1,102 +1,30 @@
 import { io, Socket } from "socket.io-client";
-import { create } from "mutative";
 import type { ClientToServerEvents, ServerToClientEvents } from "../../../server/src/server";
+import { createClientStore } from "./createClientStore";
 // this store was copied from: https://react.dev/reference/react/useSyncExternalStore
 
 const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io("ws://localhost:3000");
 
-socket.on("getMessagesFromServer", ({ messages }) => {
-	// get messages from Server
-	clientState = create(clientState, draft => {
-		draft.chatMessages = messages;
-	});
-
-	emitChange();
-});
-
-export type ClientState = {
-	chatMessages: string[];
-};
-
-let clientState: ClientState = {
-	chatMessages: [],
-};
-
-let listeners: Array<() => void> = [];
-
-export const clientStore = {
-	addMessage({ message }: { message: string }) {
-		socket.emit("newMessageFromClient", {
-			message,
-		});
-	},
-
-	subscribe(listener: () => void) {
-		// called when the state of the store changes
-		listeners = [...listeners, listener];
-		return () => {
-			listeners = listeners.filter(l => l !== listener);
-		};
-	},
-	getSnapshot() {
-		// returns the current state of the store
-		return clientState;
-	},
-};
-
-function emitChange() {
-	for (const listener of listeners) {
-		listener();
-	}
-}
-type ClientStoreReturn<State, Actions> = {
-	subscribe: (listener: () => void) => () => void;
-	getSnapshot: () => State;
-} & Actions;
-
-declare function createClientStore<State, Actions>(
-	state: State,
-	actionDefinitons: (mutate: (draft: State) => void) => Actions
-): ClientStoreReturn<State, Actions>;
-
-const chatStore = createClientStore(
+export const clientStore = createClientStore(
 	{
-		chatMessages: ["a"] as string[],
+		chatMessages: [] as string[],
 	},
 	mutate => ({
-		sendNewMessage({ message }: { message: string }) {
+		sendMessage({ message }: { message: string }) {
 			socket.emit("newMessageFromClient", {
 				message,
 			});
 		},
-		addMessage({ message }: { message: string }) {
+
+		updateMessages({ messages }: { messages: string[] }) {
 			mutate(draft => {
-				draft.chatMessages.push(message);
+				draft.chatMessages = messages;
 			});
 		},
 	})
 );
 
-const { chatMessages } = chatStore.getSnapshot();
-chatStore.subscribe(() => {
-	console.log("Chat messages updated:", chatStore.getSnapshot().chatMessages);
+socket.on("getMessagesFromServer", ({ messages }) => {
+	// get messages from Server
+	clientStore.updateMessages({ messages });
 });
-chatStore.sendNewMessage({ message: "Hello, World!" });
-// use cases:
-// socket.io
-//  - write on socket event
-//  - subscribe to store changes and send updates to server
-// react
-//  - useSyncExternalStore to subscribe to store changes
-//  - getSnapshot to get current state
-//  - actions to mutate state
-// pixi.js
-//  - subscribe to store changes and update pixi objects
-//  - getSnapshot to get current state
-//  - actions to mutate state
-
-// general:
-// - mutate state immutably
-// - define actions to mutate state
-// - get current state
-// - subscribe to state changes
