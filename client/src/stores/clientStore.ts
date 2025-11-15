@@ -49,3 +49,46 @@ function emitChange() {
 		listener();
 	}
 }
+type ClientStoreReturn<State, Actions> = {
+	subscribe: (listener: () => void) => () => void;
+	getSnapshot: () => State;
+} & Actions;
+
+declare function createClientStore<State, Actions>(
+	state: State,
+	actionDefinitons: (mutate: (draft: State) => void) => Actions
+): ClientStoreReturn<State, Actions>;
+
+const chatStore = createClientStore(
+	{
+		chatMessages: ["a"] as string[],
+	},
+	mutate => ({
+		addMessage({ message }: { message: string }) {
+			socket.emit("newMessageFromClient", {
+				message,
+			});
+			mutate(draft => {
+				draft.chatMessages.push(message);
+			});
+		},
+	})
+);
+
+const { chatMessages } = chatStore.getSnapshot();
+chatStore.subscribe(() => {
+	console.log("Chat messages updated:", chatStore.getSnapshot().chatMessages);
+});
+chatStore.addMessage({ message: "Hello, World!" });
+// use cases:
+// socket.io
+//  - write on socket event
+//  - subscribe to store changes and send updates to server
+// react
+//  - useSyncExternalStore to subscribe to store changes
+//  - getSnapshot to get current state
+//  - actions to mutate state
+// pixi.js
+//  - subscribe to store changes and update pixi objects
+//  - getSnapshot to get current state
+//  - actions to mutate state
