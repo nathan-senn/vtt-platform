@@ -9,22 +9,65 @@ function App() {
 
 	return (
 		<>
-			<div>
-				<a href="https://vite.dev" target="_blank">
-					<img src={logoipsum} className="logo" alt="Vite logo" />
-				</a>
-				<a href="https://react.dev" target="_blank">
-					<img src={logoipsum} className="logo react" alt="React logo" />
-				</a>
+			<nav className="navbar navbar-expand-lg bg-body-tertiary">
+				<div className="container-fluid">
+					<a className="navbar-brand" href="#">
+						<img src={logoipsum} alt="VTT App logo" width="30" height="24" />
+					</a>
+					<button
+						className="navbar-toggler"
+						type="button"
+						data-bs-toggle="collapse"
+						data-bs-target="#navbarNav"
+						aria-controls="navbarNav"
+						aria-expanded="false"
+						aria-label="Toggle navigation"
+					>
+						<span className="navbar-toggler-icon" />
+					</button>
+					<div className="collapse navbar-collapse" id="navbarNav">
+						<ul className="navbar-nav">
+							<li className="nav-item">
+								<a className="nav-link active" aria-current="page" href="#">
+									Home
+								</a>
+							</li>
+							<li className="nav-item">
+								<a className="nav-link" href="#">
+									Features
+								</a>
+							</li>
+							<li className="nav-item">
+								<a className="nav-link" href="#">
+									Pricing
+								</a>
+							</li>
+							<li className="nav-item">
+								<a className="nav-link disabled" aria-disabled="true">
+									Disabled
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</nav>
+			<div className="container">
+				<h1>Baseline</h1>
+				<div className="card">
+					<div className="card-body">
+						This is some text within a card body.
+						<div className="d-grid gap-2 col-6 mx-auto">
+							<button
+								type="button"
+								className="btn btn-primary"
+								onClick={() => setCount(count => count + 1)}
+							>
+								count is {count}
+							</button>
+						</div>
+					</div>
+				</div>
 			</div>
-			<h1>Vite + React</h1>
-			<div className="card">
-				<button onClick={() => setCount(count => count + 1)}>count is {count}</button>
-				<p>
-					Edit <code>src/App.tsx</code> and save to test HMR
-				</p>
-			</div>
-			<p className="read-the-docs">Click on the Vite and React logos to learn more</p>
 		</>
 	);
 }
