@@ -45,33 +45,6 @@ export function createClientStore<State extends Record<PropertyKey, unknown>, Ac
 	};
 }
 
-const chatStore = createClientStore(
-	{
-		chatMessages: ["a"] as string[],
-	},
-	mutate => ({
-		addMessage({ message }: { message: string }) {
-			mutate(draft => {
-				draft.chatMessages.push(message);
-			});
-		},
-	})
-);
-
-const { chatMessages } = chatStore.getSnapshot();
-chatStore.subscribe(() => {
-	console.log("Chat messages updated:", chatStore.getSnapshot().chatMessages);
-});
-
-chatStore.subscribe(() => {
-	console.log("Chat messages updated 2:", chatStore.getSnapshot().chatMessages);
-});
-
-const val = chatStore.mutate(draft => {
-	draft.chatMessages.push("new message");
-});
-chatStore.addMessage({ message: "Hello, World!" });
-chatStore.addMessage({ message: "My message" });
 // use cases:
 // socket.io
 //  - write on socket event
