@@ -1,11 +1,14 @@
 import { useState, useSyncExternalStore } from "react";
-import { clientStore } from "./stores/clientStore";
+import { chatStore } from "./stores/chatStore";
 const logoipsum = "/logoipsum-247.svg";
 
+export type ChatState = {
+	chatMessages: string[];
+};
+
 function App() {
-	const [count, setCount] = useState(0);
-	const { chatMessages } = useSyncExternalStore(clientStore.subscribe, clientStore.getSnapshot);
-	console.log(chatMessages);
+	const [messageInput, setMessageInput] = useState("");
+	const { chatMessages } = useSyncExternalStore(chatStore.subscribe, chatStore.getSnapshot);
 
 	return (
 		<>
@@ -51,25 +54,43 @@ function App() {
 					</div>
 				</div>
 			</nav>
-			<div className="container">
-				<h1>Baseline</h1>
-				<div className="card">
-					<div className="card-body">
-						This is some text within a card body.
-						<div className="d-grid gap-2 col-6 mx-auto">
-							<button
-								type="button"
-								className="btn btn-primary"
-								onClick={() => setCount(count => count + 1)}
-							>
-								count is {count}
-							</button>
-						</div>
+			<main className="responsive no-scroll">
+				{chatMessages.map((message, idx) => (
+					<div className="grid no-space" key={idx}>
+						<article className="m8 s10">
+							<div>{message}</div>
+						</article>
 					</div>
-				</div>
-			</div>
+				))}
+			</main>
+			<footer className="fill fixed">
+				<nav>
+					<div className="field label border max">
+						<input
+							type="text"
+							onChange={e => setMessageInput(e.target.value)}
+							value={messageInput}
+						/>
+						<label>Enter new message</label>
+					</div>
+					<button
+						className="circle extra"
+						onClick={() => {
+							if (messageInput.length === 0) {
+								alert("Input a message first.");
+								return;
+							}
+							chatStore.sendMessage({
+								message: messageInput,
+							});
+							setMessageInput("");
+						}}
+					>
+						<i>send</i>
+					</button>
+				</nav>
+			</footer>
 		</>
 	);
 }
-
 export default App;

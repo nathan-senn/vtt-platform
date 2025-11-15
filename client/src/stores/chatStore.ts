@@ -5,7 +5,7 @@ import { createClientStore } from "./createClientStore";
 
 const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io("ws://localhost:3000");
 
-export const clientStore = createClientStore(
+export const chatStore = createClientStore(
 	{
 		chatMessages: [] as string[],
 	},
@@ -26,5 +26,5 @@ export const clientStore = createClientStore(
 
 socket.on("getMessagesFromServer", ({ messages }) => {
 	// get messages from Server
-	clientStore.updateMessages({ messages });
+	chatStore.updateMessages({ messages });
 });
