@@ -64,10 +64,12 @@ const chatStore = createClientStore(
 		chatMessages: ["a"] as string[],
 	},
 	mutate => ({
-		addMessage({ message }: { message: string }) {
+		sendNewMessage({ message }: { message: string }) {
 			socket.emit("newMessageFromClient", {
 				message,
 			});
+		},
+		addMessage({ message }: { message: string }) {
 			mutate(draft => {
 				draft.chatMessages.push(message);
 			});
@@ -79,7 +81,7 @@ const { chatMessages } = chatStore.getSnapshot();
 chatStore.subscribe(() => {
 	console.log("Chat messages updated:", chatStore.getSnapshot().chatMessages);
 });
-chatStore.addMessage({ message: "Hello, World!" });
+chatStore.sendNewMessage({ message: "Hello, World!" });
 // use cases:
 // socket.io
 //  - write on socket event
@@ -92,3 +94,9 @@ chatStore.addMessage({ message: "Hello, World!" });
 //  - subscribe to store changes and update pixi objects
 //  - getSnapshot to get current state
 //  - actions to mutate state
+
+// general:
+// - mutate state immutably
+// - define actions to mutate state
+// - get current state
+// - subscribe to state changes
