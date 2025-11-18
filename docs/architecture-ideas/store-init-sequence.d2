@@ -1,0 +1,29 @@
+username saved in local storage.shape: diamond
+login was successful.shape: diamond
+
+store_uninitialized: {
+  store_uninitialized_state: |ts
+    const store = {
+      status: "uninitialized"
+    };
+  |
+}
+store_uninitialized -- username saved in local storage
+username saved in local storage -> enter username via a React component: no
+username saved in local storage -> login via socket_io: yes
+
+enter username via a React component -> login via socket_io
+
+login via socket_io -> login was successful
+login was successful -> enter username via a React component: no
+login was successful -> save username in localstorage: yes
+
+store_initialized: {
+  _.save username in localstorage -> initialize store with username
+  store_initialized_state: |ts
+    const store = {
+      status: "initialized",
+      username: "Marlon"
+    };
+  |
+}
