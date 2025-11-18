@@ -1,0 +1,20 @@
+Problems with local first: {
+    shape: sequence_diagram
+    me; server; other1
+    server."a b c"
+    server->me: sync "a b c"
+    server->other1: sync "a b c"
+
+    me->me: add d
+    me."a b c d"
+
+
+    me->server: sync add d
+    server."a b c d"
+
+    other1->other1: add e
+    other1."a b c e"
+
+    other1->server: sync add e
+    server."a b c d e"
+}

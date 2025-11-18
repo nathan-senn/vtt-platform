@@ -1,0 +1,21 @@
+Local first: {
+    shape: sequence_diagram
+    me: {
+        data changed
+    }
+    me->me: store changes locally
+    me->server: sync changes to server
+    server->others: broadcast changes to other clients
+    others->others: update store locally
+}
+Remote first: {
+    shape: sequence_diagram
+    me: {
+        data changed
+    }
+    me->server: sync changes to server
+    me<-server->others: broadcast changes to clients
+    others->others: update store locally
+    me->me: update store locally
+}
+
