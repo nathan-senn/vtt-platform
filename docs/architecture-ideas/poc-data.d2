@@ -1,0 +1,21 @@
+user: {
+  shape: sql_table
+  username: string
+}
+
+message: {
+    username: user
+    text: string
+    shape: sql_table
+}
+
+cursor: {
+    shape: sql_table
+    positionX: number
+    positionY: number
+    username: user
+}
+
+
+message.username -> user.username
+cursor.username -> user.username
