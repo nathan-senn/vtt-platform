@@ -4,7 +4,7 @@
 	"description": "",
 	"type": "commonjs",
 	"scripts": {
-		"dev": "tsx watch src/server.ts",
+		"dev": "tsx watch  --env-file=.env src/server.ts",
 		"lint": "npm run lint:eslint && npm run lint:tsc",
 		"lint:eslint": "eslint --max-warnings 0 .",
 		"lint:eslint:fix": "eslint --max-warnings 0 --fix .",
@@ -19,7 +19,8 @@
 	"license": "ISC",
 	"dependencies": {
 		"socket.io": "^4.8.1",
-		"tsx": "^4.20.6"
+		"tsx": "^4.20.6",
+		"zod": "^4.1.12"
 	},
 	"devDependencies": {
 		"@eslint/js": "^9.39.1",
