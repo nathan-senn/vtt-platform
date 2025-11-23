@@ -7,7 +7,8 @@
 		"dev": "vite",
 		"build": "tsc -b && vite build",
 		"lint": "npm run lint:eslint && npm run lint:tsc",
-		"lint:eslint": "eslint .",
+		"lint:eslint": "eslint --max-warnings 0 .",
+		"lint:eslint:fix": "eslint --max-warnings 0 --fix .",
 		"lint:tsc": "tsc --noEmit",
 		"preview": "vite preview"
 	},
