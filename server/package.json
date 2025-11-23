@@ -8,7 +8,11 @@
 		"lint": "npm run lint:eslint && npm run lint:tsc",
 		"lint:eslint": "eslint --max-warnings 0 .",
 		"lint:eslint:fix": "eslint --max-warnings 0 --fix .",
-		"lint:tsc": "tsc --noEmit"
+		"lint:tsc": "tsc --noEmit",
+		"test": "vitest run",
+		"test:debug": "vitest run --mode=debug",
+		"test:watch": "vitest watch",
+		"test:watch:debug": "vitest watch --mode=debug"
 	},
 	"keywords": [],
 	"author": "",
@@ -24,6 +28,7 @@
 		"globals": "^16.5.0",
 		"typescript": "^5.9.3",
 		"typescript-eslint": "^8.47.0",
-		"vite": "^7.2.4"
+		"vite": "^7.2.4",
+		"vitest": "^4.0.13"
 	}
 }
