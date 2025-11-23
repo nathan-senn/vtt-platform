@@ -1,0 +1,39 @@
+{
+	// See https://go.microsoft.com/fwlink/?LinkId=733558
+	// for the documentation about the tasks.json format
+	"version": "2.0.0",
+	"tasks": [
+		// Tasks for running both server and client in development mode
+		{
+			"label": "server:dev",
+			"type": "shell",
+			"command": "cd server && npm run dev",
+			"group": "none",
+			"hide": true,
+			"presentation": {
+				"reveal": "always",
+				"panel": "new"
+			}
+		},
+		{
+			"label": "client:dev",
+			"type": "shell",
+			"command": "cd client && npm run dev",
+			"group": "none",
+			"hide": true,
+			"presentation": {
+				"reveal": "always",
+				"panel": "new"
+			}
+		},
+		{
+			"label": "Start in Dev Mode",
+			"dependsOn": ["server:dev", "client:dev"],
+			"dependsOrder": "parallel",
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			}
+		}
+	]
+}
