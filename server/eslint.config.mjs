@@ -9,7 +9,7 @@ export default defineConfig([
 		files: ["**/*.{mts,ts,tsx}"],
 		extends: [js.configs.recommended, tseslint.configs.recommendedTypeChecked],
 		languageOptions: {
-			ecmaVersion: 2020,
+			ecmaVersion: "latest",
 			globals: globals.node,
 			parserOptions: {
 				projectService: true,
